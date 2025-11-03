@@ -1,8 +1,8 @@
 package com.agenda.agendadecontatos
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.agenda.agendadecontatos.dao.UsuarioDao
 import com.agenda.agendadecontatos.databinding.ActivityCadastrarUsuarioBinding
 import com.agenda.agendadecontatos.model.Usuario
@@ -15,48 +15,62 @@ class CadastrarUsuario : AppCompatActivity() {
 
     private lateinit var binding: ActivityCadastrarUsuarioBinding
     private lateinit var usuarioDao: UsuarioDao
-    private val listaUsuarios: MutableList<Usuario> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastrarUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        usuarioDao = AppDatabase.getInstance(this).usuarioDao()
+
+        // Se estiver editando um usuário existente
+        val usuarioEdicao = intent.getParcelableExtra<Usuario>("usuario")
+        usuarioEdicao?.let {
+            binding.editNome.setText(it.nome)
+            binding.editSobrenome.setText(it.sobrenome)
+            binding.editIdade.setText(it.idade)
+            binding.editCelular.setText(it.celular)
+        }
 
         binding.btCadastrar.setOnClickListener {
+            val nome = binding.editNome.text.toString()
+            val sobrenome = binding.editSobrenome.text.toString()
+            val idade = binding.editIdade.text.toString()
+            val celular = binding.editCelular.text.toString()
 
-            CoroutineScope(Dispatchers.IO).launch {
-
-                val nome = binding.editNome.text.toString()
-                val sobrenome = binding.editSobrenome.text.toString()
-                val idade = binding.editIdade.text.toString()
-                val celular = binding.editCelular.text.toString()
-                val mensagem: Boolean
-
-                if (nome.isEmpty() || sobrenome.isEmpty() || idade.isEmpty() || celular.isEmpty()) {
-                    mensagem = false
-                } else {
-                    mensagem = true
-                    cadastrar(nome, sobrenome, idade, celular)
-                }
-
-                withContext(Dispatchers.Main) {
-                    if (mensagem){
-                        Toast.makeText(applicationContext, "Sucesso ao cadastrar usuário!", Toast.LENGTH_SHORT).show()
-                        finish()
-                    }else{
-                        Toast.makeText(applicationContext, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            if (nome.isEmpty() || sobrenome.isEmpty() || idade.isEmpty() || celular.isEmpty()) {
+                Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
+            } else {
+                cadastrarOuAtualizar(usuarioEdicao, nome, sobrenome, idade, celular)
             }
-
         }
     }
 
-    private fun cadastrar(nome: String, sobrenome: String, idade: String, celular: String){
-      val usuario = Usuario(nome,sobrenome,idade,celular)
-      listaUsuarios.add(usuario)
-      usuarioDao = AppDatabase.getInstance(this).usuarioDao()
-      usuarioDao.inserir(listaUsuarios)
+    private fun cadastrarOuAtualizar(
+        usuarioEdicao: Usuario?,
+        nome: String,
+        sobrenome: String,
+        idade: String,
+        celular: String
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (usuarioEdicao != null) {
+                // Atualiza usuário existente
+                usuarioEdicao.nome = nome
+                usuarioEdicao.sobrenome = sobrenome
+                usuarioEdicao.idade = idade
+                usuarioEdicao.celular = celular
+                usuarioDao.atualizarUsuario(usuarioEdicao) // ✅ usar atualizarUsuario
+            } else {
+                // Cria novo usuário
+                val novoUsuario = Usuario(nome, sobrenome, idade, celular)
+                usuarioDao.inserir(listOf(novoUsuario))
+            }
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(applicationContext, "Sucesso!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
     }
 }

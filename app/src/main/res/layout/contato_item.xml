@@ -1,73 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="10dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
     android:background="@color/white">
-
-    <TextView
-        android:id="@+id/txtNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Marcos"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:id="@+id/txtSobrenome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Duarte Gomes"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/txtIdade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="25"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/txtCelular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="211151560515"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:layout_gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/btAtualizar"
+        <TextView
+            android:id="@+id/txtNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_atualizar"
-            android:layout_marginEnd="20dp"/>
+            android:text="Marcos"
+            android:textSize="20sp"
+            android:textColor="@color/textDark"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
 
-        <ImageView
-            android:id="@+id/btDeletar"
+        <TextView
+            android:id="@+id/txtSobrenome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_deletar"
-            android:layout_marginEnd="20dp"/>
+            android:text="Duarte Gomes"
+            android:textSize="18sp"
+            android:textColor="@color/textDark"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtIdade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25"
+            android:textSize="16sp"
+            android:textColor="@color/gray"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtCelular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(21) 1156-0515"
+            android:textSize="16sp"
+            android:textColor="@color/gray"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <ImageView
+                android:id="@+id/btAtualizar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_atualizar"
+                android:contentDescription="Atualizar"
+                android:padding="8dp"
+                android:layout_marginEnd="16dp"/>
+
+            <ImageView
+                android:id="@+id/btDeletar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_deletar"
+                android:contentDescription="Deletar"
+                android:padding="8dp"/>
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

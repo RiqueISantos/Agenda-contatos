@@ -1,78 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/backgroundLight">
 
-<LinearLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".CadastrarUsuario">
-
-    <EditText
-        android:id="@+id/editNome"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nome"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="15dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
-    <EditText
-        android:id="@+id/editSobrenome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Sobrenome"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        <!-- Ícone de cadastro no topo -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_person_add"
+            android:contentDescription="Ícone de cadastro"
+            android:tint="@color/primaryRed"
+            android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/editIdade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Idade"
-        android:inputType="number"
-        android:maxLength="3"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crie seu cadastro"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryRed"
+            android:layout_marginBottom="32dp"/>
 
-    <EditText
-        android:id="@+id/editCelular"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Celular"
-        android:inputType="number"
-        android:maxLength="15"
-        android:padding="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        <!-- Card de cadastro -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="@android:color/white"
+            android:padding="20dp"
+            android:layout_marginBottom="24dp">
 
-    <Button
-        android:id="@+id/btCadastrar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cadastrar"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/purple"
-        android:textStyle="bold"
-        android:padding="15dp"
-        android:layout_margin="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-</LinearLayout>
+                <!-- Nome -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nome"
+                    app:startIconDrawable="@drawable/ic_person"
+                    app:startIconTint="@color/primaryRed"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primaryRed"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editNome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textDark"
+                        android:textColorHint="@color/gray"
+                        android:inputType="textPersonName"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Sobrenome -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Sobrenome"
+                    app:startIconDrawable="@drawable/ic_person"
+                    app:startIconTint="@color/primaryRed"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primaryRed"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editSobrenome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textDark"
+                        android:textColorHint="@color/gray"
+                        android:inputType="textPersonName"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Idade -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Idade"
+                    app:startIconDrawable="@drawable/ic_calendar"
+                    app:startIconTint="@color/primaryRed"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primaryRed"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editIdade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textDark"
+                        android:textColorHint="@color/gray"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Celular -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Celular"
+                    app:startIconDrawable="@drawable/ic_phone"
+                    app:startIconTint="@color/primaryRed"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primaryRed"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editCelular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textDark"
+                        android:textColorHint="@color/gray"
+                        android:inputType="phone"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Email -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="E-mail"
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/primaryRed"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/primaryRed"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textDark"
+                        android:textColorHint="@color/gray"
+                        android:inputType="textEmailAddress"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botão cadastrar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btCadastrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:backgroundTint="@color/primaryRed"
+            app:cornerRadius="30dp"
+            app:icon="@drawable/ic_check"
+            app:iconTint="@android:color/white"
+            app:iconGravity="textStart"/>
+
+        <!-- Texto de login -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Já possui conta? Faça login"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
 </ScrollView>

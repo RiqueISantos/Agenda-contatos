@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#673AB7</color>
     <color name="dark_gray">#DEDEDE</color>
+    <color name="backgroundLight">#F8F8F8</color>
+    <color name="primaryRed">#D13E3E</color>
+    <color name="textDark">#333333</color>         <!-- Texto principal escuro -->
+    <color name="gray">#777777</color>
 </resources>
