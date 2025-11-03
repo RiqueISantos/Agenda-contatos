@@ -7,32 +7,23 @@ import androidx.room.RoomDatabase
 import com.agenda.agendadecontatos.dao.UsuarioDao
 import com.agenda.agendadecontatos.model.Usuario
 
-@Database(entities = [Usuario::class], version = 4)
-abstract class AppDatabase: RoomDatabase() {
-
+@Database(entities = [Usuario::class], version = 5) // aumente a versão
+abstract class AppDatabase : RoomDatabase() {
     abstract fun usuarioDao(): UsuarioDao
 
-    companion object{
-
-        private const val DATABASE_NOME = "DB_USUARIOS"
-
-        @Volatile
+    companion object {
         private var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Context): AppDatabase{
-            return INSTANCE ?: synchronized(this){
-                val instance = Room.databaseBuilder(
+        fun getInstance(context: Context): AppDatabase {
+            if (INSTANCE == null) {
+                INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
-                    DATABASE_NOME
+                    AppDatabase::class.java, "agenda.db"
                 )
-                .fallbackToDestructiveMigration()
-                .build()
-
-
-                INSTANCE = instance
-                instance
+                    .fallbackToDestructiveMigration() // apaga o banco antigo
+                    .build()
             }
+            return INSTANCE!!
         }
     }
 }

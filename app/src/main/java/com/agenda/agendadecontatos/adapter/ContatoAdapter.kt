@@ -16,40 +16,44 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ContatoAdapter(private val context: Context, private val listaUsuarios: MutableList<Usuario>):
-    RecyclerView.Adapter<ContatoAdapter.ContatoViewHolder>() {
+class ContatoAdapter(
+    private val context: Context,
+    private val listaUsuarios: MutableList<Usuario>
+) : RecyclerView.Adapter<ContatoAdapter.ContatoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContatoViewHolder {
-        val itemLista = ContatoItemBinding.inflate(LayoutInflater.from(context),parent,false)
+        val itemLista = ContatoItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ContatoViewHolder(itemLista)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ContatoViewHolder, position: Int) {
-        holder.txtNome.text = listaUsuarios[position].nome
-        holder.txtSobrenome.text = listaUsuarios[position].sobrenome
-        holder.txtIdade.text = listaUsuarios[position].idade
-        holder.txtCelular.text = listaUsuarios[position].celular
+        val usuario = listaUsuarios[position]
+
+        holder.txtNome.text = usuario.nome
+        holder.txtSobrenome.text = usuario.sobrenome
+        holder.txtIdade.text = usuario.idade
+        holder.txtCelular.text = usuario.celular
+        holder.txtEmail.text = usuario.email // <- email setado aqui
 
         holder.btAtualizar.setOnClickListener {
-           val intent = Intent(context,AtualizarUsuario::class.java)
-           intent.putExtra("nome",listaUsuarios[position].nome)
-           intent.putExtra("sobrenome",listaUsuarios[position].sobrenome)
-           intent.putExtra("idade",listaUsuarios[position].idade)
-           intent.putExtra("celular",listaUsuarios[position].celular)
-           intent.putExtra("uid",listaUsuarios[position].uid)
-           context.startActivity(intent)
+            val intent = Intent(context, AtualizarUsuario::class.java)
+            intent.putExtra("nome", usuario.nome)
+            intent.putExtra("sobrenome", usuario.sobrenome)
+            intent.putExtra("idade", usuario.idade)
+            intent.putExtra("celular", usuario.celular)
+            intent.putExtra("email", usuario.email) // <- email enviado
+            intent.putExtra("uid", usuario.uid)
+            context.startActivity(intent)
         }
 
         holder.btDeletar.setOnClickListener {
-
             CoroutineScope(Dispatchers.IO).launch {
-                val usuario = listaUsuarios[position]
                 val usuarioDao: UsuarioDao = AppDatabase.getInstance(context).usuarioDao()
                 usuarioDao.deletar(usuario.uid)
                 listaUsuarios.remove(usuario)
 
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     notifyDataSetChanged()
                 }
             }
@@ -57,22 +61,21 @@ class ContatoAdapter(private val context: Context, private val listaUsuarios: Mu
     }
 
     override fun getItemCount() = listaUsuarios.size
+
     @SuppressLint("NotifyDataSetChanged")
     fun atualizarLista(novaLista: List<Usuario>) {
-        // 1. Limpa a lista atual que o adapter está usando
         listaUsuarios.clear()
-        // 2. Adiciona todos os novos itens (vindos do banco de dados) à lista
         listaUsuarios.addAll(novaLista)
-        // 3. Notifica o RecyclerView que os dados mudaram, para que ele se redesenhe
         notifyDataSetChanged()
     }
 
     inner class ContatoViewHolder(binding: ContatoItemBinding) : RecyclerView.ViewHolder(binding.root) {
-      val txtNome = binding.txtNome
-      val txtSobrenome = binding.txtSobrenome
-      val txtIdade = binding.txtIdade
-      val txtCelular = binding.txtCelular
-      val btAtualizar = binding.btAtualizar
-      val btDeletar = binding.btDeletar
+        val txtNome = binding.txtNome
+        val txtSobrenome = binding.txtSobrenome
+        val txtIdade = binding.txtIdade
+        val txtCelular = binding.txtCelular
+        val txtEmail = binding.txtEmail // <- referência do TextView do email
+        val btAtualizar = binding.btAtualizar
+        val btDeletar = binding.btDeletar
     }
 }

@@ -12,7 +12,9 @@ data class Usuario(
     @ColumnInfo(name = "nome") var nome: String,
     @ColumnInfo(name = "sobrenome") var sobrenome: String,
     @ColumnInfo(name = "idade") var idade: String,
-    @ColumnInfo(name = "celular") var celular: String
+    @ColumnInfo(name = "celular") var celular: String,
+    @ColumnInfo(name = "email") val email: String
+
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0
